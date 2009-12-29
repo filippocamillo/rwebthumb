@@ -7,7 +7,7 @@ for the easythumb API
 = Installation
 sudo gem update --system (in case you are not yet on version 1.2.0 or higher)
 sudo gem sources -a http://gems.github.com (only once)
-sudo gem install simplificator-rwebthumb
+sudo gem install guitarfunk-rwebthumb
 
 
 = Usage
@@ -20,14 +20,17 @@ include Simplificator::Webthumb
 wt = Webthumb.new('YOUR API KEY')
 
 # Create a new thumbnail job
-job = wt.thumbnail(:url => 'http://simplificator.com')
+job = wt.thumbnail(:url => 'http://www.filippocamillo.com')
 
 # fetch the thumbnail. this might throw an exception from server side
 # if thumb is not ready yet
 job.fetch(:large)
 
-# you can check the status of a job
-job.check_status()
+# you can check the status of a job by request id
+job.check_status
+
+# you can also now check the status of a job by url
+job.check_status_by_url
 
 # or fetch the thumbnail when it is complete
 job.fetch_when_complete(:large)

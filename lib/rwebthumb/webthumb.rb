@@ -54,6 +54,16 @@ module Simplificator
         {:reserve => credit_element['reserve'].text.to_i, :subscription => credit_element['subscription'].text.to_i}
       end
       
+      # This method doesn't work
+      # <webthumb>
+      #   <credits>
+      #     <used-this-month>1642.5</used-this-month>
+      #     <easythumb-cached-this-month>15765</easythumb-cached-this-month>
+      #     <subscription>1000</subscription>
+      #     <reserve>45587.1</reserve>
+      #   </credits>
+      # </webthumb>
+      
       private 
       def build_thumbnail_xml(options)
         validate_thumbnail_options(options)
