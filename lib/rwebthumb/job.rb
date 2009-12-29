@@ -57,6 +57,15 @@ module Simplificator
         @status
       end
 
+      def check_status_by_url
+        response = do_request(build_status_by_url())
+        @status = REXML::XPath.first(response, '/webthumb/jobStatus/status').text == 'Complete' ? STATUS_PICKUP : STATUS_PROCESSING
+        if pickup?
+          @completion_time = response.attributes['completionTime']
+        end
+        @status
+      end
+
       def fetch_when_complete(size = :small)
         while not pickup?
           sleep @duration_estimate
@@ -114,6 +123,14 @@ module Simplificator
         status.add_element('job').add_text(@job_id)
         root
       end
+
+      def build_status_by_url()
+        root = build_root_node()
+        status = root.add_element('status')
+        status.add_element('url').add_text(@url)
+        root
+      end
+
 
       def to_s
         "Job: #{@job_id} / Status: #{@status} / Submission Time #{@submission_time} / Duration Estimate #{@duration_estimate}"
